@@ -283,10 +283,10 @@ fun main(args: Array<String>) {
         val toWrite = ArrayList<String>()
         mappings.newMappingData.filter { data -> data.className.bukkitName != null }.forEach { data ->
             data.methods.filter { member -> member.bukkitName != null }.forEach { member ->
-                toWrite.add("${data.className.bukkitName} ${member.obf} ${member.params.map { s -> mappings.findNewObfOrDefaultByDeobfCN(s) }.toSignature(mappings.findNewObfOrDefaultByDeobfCN(member.returnType!!))} ${member.bukkitName}")
+                toWrite.add("${data.className.bukkitName?.replace(".", "/")} ${member.obf} ${member.params.map { s -> mappings.findNewObfOrDefaultByDeobfCN(s) }.toSignature(mappings.findNewObfOrDefaultByDeobfCN(member.returnType!!))} ${member.bukkitName}")
             }
             data.fields.filter { member -> member.bukkitName != null }.forEach { member ->
-                toWrite.add("${data.className.bukkitName} ${member.obf} ${member.bukkitName}")
+                toWrite.add("${data.className.bukkitName?.replace(".", "/")} ${member.obf} ${member.bukkitName}")
             }
         }
         if (outputMembersFile.exists()) outputMembersFile.delete()
